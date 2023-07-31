@@ -45,15 +45,15 @@ class MatchedSampleEntry(object):
 
 
     def getShortSha256(self, prefix=8, border=0):
-        if border > 0:
-            return self.sha256[:border] + "..." + self.sha256[-border:]
-        elif prefix > 0:
-            return self.sha256[:prefix]
+        # if border > 0:
+        #     return self.sha256[:border] + "..." + self.sha256[-border:]
+        # elif prefix > 0:
+        #     return self.sha256[:prefix]
         return self.sha256
 
     def getShortFilename(self, size_visible=20):
-        if (len(self.filename) > 2 * size_visible):
-            return self.filename[:size_visible] + "..." + self.filename[-size_visible:]
+        # if (len(self.filename) > 2 * size_visible):
+        #     return self.filename[:size_visible] + "..." + self.filename[-size_visible:]
         return self.filename
 
     def toDict(self):
