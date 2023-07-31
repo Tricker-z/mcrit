@@ -200,13 +200,13 @@ def work(input_element):
     INPUT_FILEPATH = input_element['filepath']
     INPUT_FILENAME = input_element['filename']
     identifier = NativeCodeIdentifier()
-    if not identifier.isNativeCode(INPUT_FILEPATH):
-        return
+    # if not identifier.isNativeCode(INPUT_FILEPATH):
+    #     return
     folder_relative_path = getFolderFilePath(INPUT_ROOT, INPUT_FILEPATH)
     disassembler = Disassembler()
     try:
         if re.search(dump_file_pattern, input_element['filename']):
-            print("Analyzing file: {}".format(INPUT_FILEPATH))
+            # print("Analyzing file: {}".format(INPUT_FILEPATH))
             BUFFER = readFileContent(INPUT_FILEPATH)
             BASE_ADDR = parseBaseAddrFromArgs(INPUT_FILENAME)
             BITNESS = getBitnessFromFilename(INPUT_FILENAME)
@@ -219,8 +219,9 @@ def work(input_element):
                 REPORT = disassembler.disassembleBuffer(BUFFER, BASE_ADDR, BITNESS)
             except AttributeError:
                 logger.error("AttributeError for: " + str(INPUT_FILENAME))
-        elif "_unpacked" in input_element['filename']:
-            print("Analyzing file: {}".format(INPUT_FILEPATH))
+        # elif "_unpacked" in input_element['filename']:
+        else:
+            # print("Analyzing file: {}".format(INPUT_FILEPATH))
             try:
                 REPORT = disassembler.disassembleFile(INPUT_FILEPATH)
             except AttributeError:
@@ -231,7 +232,7 @@ def work(input_element):
             REPORT.filename = os.path.basename(INPUT_FILENAME)
             with open("smda-output/" + OUTPUT_FILENAME, "w") as fout:
                 json.dump(REPORT.toDict(), fout, indent=1, sort_keys=True)
-                logger.info("Wrote " + "smda-output/" + OUTPUT_FILENAME)
+                # logger.info("Wrote " + "smda-output/" + OUTPUT_FILENAME)
     except Exception:
         print("RunTimeError, we skip!")
         print("smda: " + str( INPUT_FILENAME ))
